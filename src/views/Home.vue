@@ -1,18 +1,65 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
-  </div>
+	<div class="home">
+		<div v-if="!tracksLoaded">
+			Loading tracks...
+		</div>
+		<div v-else>
+			<table>
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Никнейм</th>
+						<th>Прослушать</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<tr
+						v-for="track in tracks"
+						:key="track.id"
+					>
+						<td>{{track.id}}</td>
+						<td>
+							<span class="rapper-name">{{track.user.profile.name}}</span>
+							<span class="rapper-username">({{track.user.username}})</span>
+						</td>
+						<td><single-audio :src="track.path" /></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
+import Vue from 'vue'
+import SingleAudio from '../components/SingleAudio.vue'
+import { ITrackRecord } from '../interfaces'
 
 export default Vue.extend({
-  name: 'home',
-  components: {
-    HelloWorld,
-  },
-});
+	name: 'home',
+	computed: {
+		tracks(): ITrackRecord[]
+		{
+			return this.$store.state.tracks.slice(0, 10)
+		},
+		tracksLoaded()
+		{
+			return this.tracks.length
+		}
+	},
+	components: {
+		SingleAudio
+	},
+})
 </script>
+
+<style lang="less" scoped>
+.rapper-name {
+	font-weight: bold;
+}
+.rapper-username {
+	margin-left: 0.3rem;
+	color: gray;
+}
+</style>
