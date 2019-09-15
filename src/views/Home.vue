@@ -1,10 +1,13 @@
 <template>
-	<div class="home">
+	<div class="home container is-fullwidth">
 		<div v-if="!tracksLoaded">
 			Loading tracks...
 		</div>
-		<div v-else>
-			<table>
+		<div
+			v-else
+			class="columns is-centered"
+		>
+			<table class="table">
 				<thead>
 					<tr>
 						<th>ID</th>
@@ -23,7 +26,12 @@
 							<span class="rapper-name">{{track.user.profile.name}}</span>
 							<span class="rapper-username">({{track.user.username}})</span>
 						</td>
-						<td><single-audio :src="track.path" /></td>
+						<td>
+							<single-audio
+								class="small-audio"
+								:src="track.path"
+							/>
+						</td>
 					</tr>
 				</tbody>
 			</table>
@@ -61,5 +69,8 @@ export default Vue.extend({
 .rapper-username {
 	margin-left: 0.3rem;
 	color: gray;
+}
+.small-audio {
+	height: 2rem;
 }
 </style>
