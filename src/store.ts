@@ -100,7 +100,7 @@ export default new Vuex.Store({
 		},
 		async LOAD_DATA()
 		{
-			let res = await axios('/all.json')
+			let res = await axios('all.json')
 			let data = res.data as ITrackRecord[]
 			data.sort((a,b) => a.id - b.id)
 			data.forEach(x => x.path = `https://ib17.hip-hop.ru${x.path}`)
