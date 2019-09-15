@@ -13,7 +13,8 @@
 			</h5>
 			<router-link to="/">Список треков</router-link> |
 			<router-link to="/judging">Судейство</router-link> |
-			<router-link to="/myratings">Мои оценки</router-link>
+			<router-link to="/myratings">Мои оценки</router-link> |
+			<router-link to="/stats">Статистика</router-link>
 		</div>
 		<router-view/>
 	</div>

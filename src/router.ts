@@ -24,5 +24,10 @@ export default new Router({
 			name: 'myratings',
 			component: () => import('./views/MyRatings.vue')
 		},
+		{
+			path: '/stats',
+			name: 'stats',
+			component: () => import('./views/Stats.vue')
+		},
 	]
 })

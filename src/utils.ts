@@ -7,3 +7,8 @@ export function stopAllAudioExcept(one: HTMLAudioElement)
 			audios[i].pause()
 	}
 }
+
+export function appendZeroes(i: number, len: number)
+{
+	return '0'.repeat(Math.max(0, len - i.toString().length)) + i
+}
