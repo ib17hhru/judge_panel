@@ -104,6 +104,13 @@ export default Vue.extend({
 	line-height: 1rem;
 }
 
+.rapper-name {
+	font-weight: bold;
+}
+.rapper-username {
+	margin-left: 0.3rem;
+	color: gray;
+}
 .audio-width {
 	// min-width: 20rem;
 }
