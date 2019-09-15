@@ -41,6 +41,10 @@ export default new Vuex.Store({
 		{
 			state.judging.currentTrackId = id
 		},
+		JUDGE_CLEAR_CURRENT_TRACK(state)
+		{
+			state.judging.currentTrackId = NaN
+		},
 		JUDGE_SET_RATINGS(state, { ratings }: { ratings: ITrackRating[] })
 		{
 			state.judging.ratings = ratings
@@ -101,6 +105,11 @@ export default new Vuex.Store({
 			data.forEach(x => x.path = `https://ib17.hip-hop.ru${x.path}`)
 			this.commit('UPDATE_DATA', { tracks: data })
 		},
+		async JUDGE_INIT()
+		{
+			if (isNaN(this.state.judging.currentTrackId))
+				await this.dispatch('JUDGE_SELECT_NEW_TRACK')
+		},
 		async JUDGE_SELECT_NEW_TRACK()
 		{
 			if (!this.state.judging.notRatedIds.length)
@@ -110,10 +119,15 @@ export default new Vuex.Store({
 			this.commit('JUDGE_SELECT_NEW_TRACK', { idx })
 			await this.dispatch('STORAGE_SAVE_JUDGE')
 		},
-		async JUDGE_INIT()
+		async JUDGE_SKIP_TRACK()
 		{
-			if (isNaN(this.state.judging.currentTrackId))
-				await this.dispatch('JUDGE_SELECT_NEW_TRACK')
+			await this.dispatch('JUDGE_SELECT_NEW_TRACK')
+		},
+		JUDGE_RATE_CURRENT_TRACK(store, payload: { score: number, comment: string })
+		{
+			this.commit('JUDGE_ADD_RATING', { id: this.state.judging.currentTrackId, ...payload })
+			this.commit('JUDGE_CLEAR_CURRENT_TRACK')
+			this.dispatch('JUDGE_SELECT_NEW_TRACK')
 		}
 	}
 })
