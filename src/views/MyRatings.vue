@@ -57,7 +57,8 @@
 <script lang="ts">
 import Vue from 'vue'
 import SingleAudio from '../components/SingleAudio.vue'
-import store from '../store'
+import store, { ITrackRating } from '../store'
+import { ITrackRecord } from '../interfaces'
 
 export default Vue.extend({
 	data()
@@ -67,7 +68,7 @@ export default Vue.extend({
 		}
 	},
 	computed: {
-		ratings()
+		ratings(): ITrackRating[]
 		{
 			let ratings = store.state.judging.ratings
 			if (ratings.length > 20)
@@ -79,7 +80,7 @@ export default Vue.extend({
 
 			return ratings
 		},
-		ratingsFull()
+		ratingsFull(): (ITrackRating & { track: ITrackRecord })[]
 		{
 			return this.ratings.map(x => ({ ...x, track: store.state.trackObj[x.id] }))
 		}
