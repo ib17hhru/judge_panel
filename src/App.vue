@@ -5,7 +5,8 @@
 	<div v-else id="app" class="container">
 		<div id="nav">
 			<router-link to="/">Список треков</router-link> |
-			<router-link to="/judging">Судейство</router-link>
+			<router-link to="/judging">Судейство</router-link> |
+			<router-link to="/myratings">Мои оценки</router-link>
 		</div>
 		<router-view/>
 	</div>
@@ -46,9 +47,10 @@ export default Vue.extend({
 	text-align: center;
 	a {
 		font-weight: bold;
-		color: #2c3e50;
+		color: #42b983;
+		white-space: nowrap;
 		&.router-link-exact-active {
-			color: #42b983;
+			color: #2c3e50;
 		}
 	}
 }

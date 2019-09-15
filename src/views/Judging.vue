@@ -1,5 +1,5 @@
 <template>
-	<div class="judging">
+	<div class="judging container is-fullwidth">
 		<div class="hero">
 			<div class="hero-body">
 				<h1 class="title">Оценка треков</h1>
@@ -28,6 +28,7 @@
 					/>
 					<textarea
 						name="comment" id="" cols="30" rows="10"
+						class="textarea"
 						v-model="comment"
 					></textarea>
 					<!-- Текущий трек: {{ JSON.stringify(currentTrack) }} -->
@@ -136,6 +137,8 @@ export default Vue.extend({
 </script>
 
 <style lang="less" scoped>
+@import "../assets/colors.less";
+
 .left-column {
 	margin-left: 2rem;
 }
@@ -163,13 +166,15 @@ div.score {
 }
 span.star {
 	.empty-star;
-	color: rgb(199, 186, 0);
+	.star-yellow;
+	// color: rgb(199, 186, 0);
 	&.selected {
 		.full-star;
 	}
 	&:hover {
 		.full-star;
-		color: rgb(146, 136, 0);
+		.star-dark-yellow;
+		// color: rgb(146, 136, 0);
 		cursor: pointer;
 	}
 }
