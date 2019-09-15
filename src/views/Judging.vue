@@ -21,15 +21,16 @@
 				v-else
 				class="columns is-centered"
 			>
-				<div class="column is-8">
+				<div class="column is-8 left-column">
 					<single-audio
 						class="small-audio"
 						:src="currentTrack.path"
 					/>
+					<textarea name="comment" id="" cols="30" rows="10"></textarea>
 					<!-- Текущий трек: {{ JSON.stringify(currentTrack) }} -->
 				</div>
 				<div class="column">
-					<div class="score">
+					<div class="score is-size-1">
 						<span :class="getStarClass(1)" @click.stop="onStarClick(1)">
 							<span :class="getStarClass(2)" @click.stop="onStarClick(2)">
 								<span :class="getStarClass(3)" @click.stop="onStarClick(3)">
@@ -90,7 +91,6 @@ export default Vue.extend({
 		{
 			return {
 				star: true,
-				'is-size-1': true,
 				selected: (idx <= this.score),
 			}
 		},
@@ -102,15 +102,21 @@ export default Vue.extend({
 </script>
 
 <style lang="less" scoped>
+.left-column {
+	margin-left: 2rem;
+}
 .small-audio {
-	height: 2rem;
+	// height: 2rem;
 	width: 100%;
 }
 button.button {
-	width: 90%;
+	width: 100%;
+}
+textarea {
+	width: 100%;
 }
 div.score {
-	margin-bottom: 40px;
+	text-align: center;
 }
 .empty-star {
 	&:before {
@@ -130,7 +136,7 @@ span.star {
 	}
 	&:hover {
 		.full-star;
-		color: rgba(199, 186, 0, 0.5);
+		color: rgb(146, 136, 0);
 		cursor: pointer;
 	}
 }
