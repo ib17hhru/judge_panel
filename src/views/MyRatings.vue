@@ -31,8 +31,10 @@
 							>
 								<td class="id-trunc">{{rating.id}}</td>
 								<td class="name-trunc">
-									<span class="rapper-name">{{rating.track.user.profile.name}}</span>
-									<span class="rapper-username">({{rating.track.user.username}})</span>
+									<template v-if="rating.track">
+										<span class="rapper-name">{{rating.track.user.profile.name}}</span>
+										<span class="rapper-username">({{rating.track.user.username}})</span>
+									</template>
 								</td>
 								<td class="comment-trunc">
 									<span class="is-size-3 small-stars">{{starsStr(rating.score)}}</span><br/>

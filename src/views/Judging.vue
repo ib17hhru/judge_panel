@@ -10,7 +10,7 @@
 			v-else
 		>
 			<div
-				v-if="!currentTrack"
+				v-if="!hasTrack"
 				class="columns"
 			>
 				<div class="columns is-centered">
@@ -23,6 +23,7 @@
 			>
 				<div class="column is-8 left-column">
 					<single-audio
+						v-if="currentTrack"
 						class="small-audio"
 						:src="currentTrack.path"
 					/>
@@ -61,6 +62,9 @@
 							>Пропустить</button>
 						</div>
 					</div>
+					<div class="total-ratings">
+						Всего оценено: <span class="total-rated">{{ratedCount}}</span> из {{totalCount}} треков.
+					</div>
 				</div>
 			</div>
 		</div>
@@ -89,11 +93,24 @@ export default Vue.extend({
 		this.loaded = true
 	},
 	computed: {
+		hasTrack(): boolean
+		{
+			let id = store.state.judging.currentTrackId
+			return !isNaN(id)
+		},
 		currentTrack(): ITrackRecord | null
 		{
 			let id = store.state.judging.currentTrackId
 			return isNaN(id) ? null : store.state.trackObj[id]
-		}
+		},
+		ratedCount(): number
+		{
+			return store.state.judging.ratings.length
+		},
+		totalCount(): number
+		{
+			return store.state.tracks.length
+		},
 	},
 	methods: {
 		resetForm()
@@ -153,6 +170,9 @@ textarea {
 }
 div.score {
 	text-align: center;
+}
+.total-rated {
+	font-weight: bold;
 }
 .empty-star {
 	&:before {
