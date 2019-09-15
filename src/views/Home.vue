@@ -45,15 +45,14 @@ import SingleAudio from '../components/SingleAudio.vue'
 import { ITrackRecord } from '../interfaces'
 
 export default Vue.extend({
-	name: 'home',
 	computed: {
 		tracks(): ITrackRecord[]
 		{
 			return this.$store.state.tracks.slice(0, 10)
 		},
-		tracksLoaded()
+		tracksLoaded(): boolean
 		{
-			return this.tracks.length
+			return !!this.tracks.length
 		}
 	},
 	components: {
