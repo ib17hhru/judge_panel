@@ -87,6 +87,7 @@ export default new Vuex.Store({
 			let data = {
 				cur: this.state.judging.currentTrackId,
 				ratings: this.state.judging.ratings,
+				v: '0.1',
 			}
 			localStorage.setItem('judge', JSON.stringify(data))
 		},
