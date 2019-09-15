@@ -26,7 +26,10 @@
 						class="small-audio"
 						:src="currentTrack.path"
 					/>
-					<textarea name="comment" id="" cols="30" rows="10"></textarea>
+					<textarea
+						name="comment" id="" cols="30" rows="10"
+						v-model="comment"
+					></textarea>
 					<!-- Текущий трек: {{ JSON.stringify(currentTrack) }} -->
 				</div>
 				<div class="column">
@@ -43,10 +46,18 @@
 					</div>
 					<div class="columns">
 						<div class="column">
-							<button class="button is-link">Оценить</button>
+							<button
+								class="button is-link"
+								:disabled="submitting"
+								@click="onSubmit"
+							>Оценить</button>
 						</div>
 						<div class="column">
-							<button class="button is-light">Пропустить</button>
+							<button
+								class="button is-light"
+								:disabled="submitting"
+								@click="onSkip"
+							>Пропустить</button>
 						</div>
 					</div>
 				</div>
@@ -68,6 +79,7 @@ export default Vue.extend({
 			loaded: false,
 			score: 0,
 			comment: '',
+			submitting: false,
 		}
 	},
 	async mounted()
@@ -83,6 +95,28 @@ export default Vue.extend({
 		}
 	},
 	methods: {
+		resetForm()
+		{
+			this.score = 0
+			this.comment = ''
+		},
+		async onSkip()
+		{
+			this.submitting = true
+			await store.dispatch('JUDGE_SKIP_TRACK')
+			this.resetForm()
+			this.submitting = false
+		},
+		async onSubmit()
+		{
+			this.submitting = true
+			await store.dispatch('JUDGE_RATE_CURRENT_TRACK', {
+				score: this.score,
+				comment: this.comment,
+			})
+			this.resetForm()
+			this.submitting = false
+		},
 		onStarClick(idx: number)
 		{
 			this.score = idx
@@ -106,7 +140,6 @@ export default Vue.extend({
 	margin-left: 2rem;
 }
 .small-audio {
-	// height: 2rem;
 	width: 100%;
 }
 button.button {

@@ -117,17 +117,19 @@ export default new Vuex.Store({
 			
 			let idx = Math.floor(Math.random() * this.state.judging.notRatedIds.length)
 			this.commit('JUDGE_SELECT_NEW_TRACK', { idx })
-			await this.dispatch('STORAGE_SAVE_JUDGE')
+			this.dispatch('STORAGE_SAVE_JUDGE')
+			await Promise.resolve()
 		},
 		async JUDGE_SKIP_TRACK()
 		{
 			await this.dispatch('JUDGE_SELECT_NEW_TRACK')
 		},
-		JUDGE_RATE_CURRENT_TRACK(store, payload: { score: number, comment: string })
+		async JUDGE_RATE_CURRENT_TRACK(store, payload: { score: number, comment: string })
 		{
-			this.commit('JUDGE_ADD_RATING', { id: this.state.judging.currentTrackId, ...payload })
+			this.commit('JUDGE_ADD_RATING', { rating: { id: this.state.judging.currentTrackId, ...payload } })
 			this.commit('JUDGE_CLEAR_CURRENT_TRACK')
 			this.dispatch('JUDGE_SELECT_NEW_TRACK')
+			await Promise.resolve()
 		}
 	}
 })
