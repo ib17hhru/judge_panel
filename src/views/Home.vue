@@ -1,7 +1,7 @@
 <template>
 	<div class="home container is-fullwidth">
 		<div v-if="!tracksLoaded">
-			Loading tracks...
+			Загрузка...
 		</div>
 		<div
 			v-else

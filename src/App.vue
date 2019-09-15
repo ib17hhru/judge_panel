@@ -1,9 +1,16 @@
 <template>
+
 	<div v-if="!inited">
+		<h5 class="subtitle">
+			Независимая судейская панель 17-го независимого батла hip-hop.ru
+		</h5>
 		Загрузка...
 	</div>
 	<div v-else id="app" class="container">
 		<div id="nav">
+			<h5 class="subtitle">
+				Независимая судейская панель 17-го независимого батла hip-hop.ru
+			</h5>
 			<router-link to="/">Список треков</router-link> |
 			<router-link to="/judging">Судейство</router-link> |
 			<router-link to="/myratings">Мои оценки</router-link>
