@@ -34,7 +34,7 @@ export default new Vuex.Store({
 		UPDATE_DATA(state, payload: { tracks: ITrackRecord[] })
 		{
 			state.tracks = payload.tracks
-			state.trackObj = payload.tracks.reduce((acc, cur) => ({ ...acc, [cur.id]: cur }), { } as typeof state.trackObj)
+			state.trackObj = payload.tracks.reduce((acc, cur) => { acc[cur.id] = cur; return acc }, { } as typeof state.trackObj)
 			console.log(payload.tracks.slice(0, 10))
 		},
 		JUDGE_SET_CURRENT_TRACK(state, { id }: { id: number })
